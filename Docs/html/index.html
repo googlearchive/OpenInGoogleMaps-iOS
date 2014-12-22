@@ -1,0 +1,312 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>OpenInGoogleMaps Reference</title>
+		<link rel="stylesheet" type="text/css" href="css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="index.html">OpenInGoogleMaps </a></h1>
+				<a id="developerHome" href="index.html">Google</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">OpenInGoogleMaps Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar"></ul>
+		</header>
+		<article>
+			<div id="overview_contents" role="main">
+				<div class="main-navigation navigation-top">
+					<a href="hierarchy.html">Next</a>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">OpenInGoogleMaps Reference</h1>
+					</div>		
+				</div>
+				<div id="container">
+					
+					<div class="section section-overview index-overview">
+						
+						
+						<h1><a href="Classes/OpenInGoogleMapsController.html">OpenInGoogleMapsController</a></h1>
+
+<p>The <a href="Classes/OpenInGoogleMapsController.html"><code>OpenInGoogleMapsController</code></a> class is designed to make it easy for an iOS developer to open a map, show a Street View location, or show a set of directions directly in Google Maps. The class supports using the <code>x-callback-URL</code> standard so that you can add a &ldquo;Back to <em>my app</em>&rdquo; button directly within Google Maps, and supports a number of fallback strategies, so that you can automatically open the map in another application if the user does not have Google Maps installed.</p>
+
+<h2>About the Google Maps URL Scheme</h2>
+
+<p>The <a href="Classes/OpenInGoogleMapsController.html"><code>OpenInGoogleMapsController</code></a> class makes use of the Google Maps URL Scheme. If you want to understand how the class works under the hood, we highly recommend reading the <a href="https://developers.google.com/maps/documentation/ios/urlscheme">URL Scheme documentation</a> first.</p>
+
+<h2>Installing <a href="Classes/OpenInGoogleMapsController.html">OpenInGoogleMapsController</a></h2>
+
+<p>You can download the <a href="Classes/OpenInGoogleMapsController.html"><code>OpenInGoogleMapsController</code></a> class, along with a sample app demonstrating its use, from the OpenInGoogleMaps <a href="http:`OpenInGoogleMapsController`//TODO">Github page</a>.</p>
+
+<p>To add the class to your Xcode project, simply drag the <a href="Classes/OpenInGoogleMapsController.html"><code>OpenInGoogleMapsController</code></a> .m and .h files into Xcode. Make sure you call <code>#import </code>OpenInGoogleMapsController<code>.h</code> where necessary.</p>
+
+<h3>Running the Sample Application</h3>
+
+<p>If you would like to try out the sample application, open <code>OpenInGoogleMapsSample.xcodeproj</code> in Xcode. You will probably want to run this on a real device, as the simulator does not have Google Maps installed.</p>
+
+<h2>Using <a href="Classes/OpenInGoogleMapsController.html">OpenInGoogleMapsController</a></h2>
+
+<p><a href="Classes/OpenInGoogleMapsController.html"><code>OpenInGoogleMapsController</code></a> is a singleton class, which you can reference by calling the <code>sharedInstance</code> class method.</p>
+
+<pre><code>[[OpenInGoogleMapsController sharedInstance] &lt;make calls here&gt;]
+</code></pre>
+
+<h2>Adding a Callback URL</h2>
+
+<p>Google Maps and Google Chrome both support the <a href="http://x-callback-url.com/">x-callback-URL</a> specification, which allows you to easily add a &ldquo;Back to <em>my app</em>&rdquo; button in Google Maps. To add a callback url:</p>
+
+<ol>
+<li>Within your Xcode project, select your target, and then select <em>Info -> URL Types</em></li>
+<li>Add a URLType for your application. This string should be unique for your app. Many developers choose to use their bundle identifier, without the periods (<code>comgooglemyapp</code>, for instance).</li>
+<li><p>Set the <code>callbackURL</code> property in your <a href="Classes/OpenInGoogleMapsController.html"><code>OpenInGoogleMapsController</code></a> class.</p>
+
+<pre><code> NSString myURLScheme = @"comexamplemyapp://";
+ NSURL myCallbackURL = [NSURL URLWithString:myURLScheme];
+ [OpenInGoogleMapsController sharedInstance].callbackURL = myCallbackURL;
+</code></pre></li>
+</ol>
+
+
+<p>When you open your maps now in Google Maps (or Google Chrome), you should see a button that redirects users back to your app when they&rsquo;re done viewing the map.</p>
+
+<p>You only need to set the callback URL once during the lifetime of your application and it will be used in all future <a href="Classes/OpenInGoogleMapsController.html"><code>OpenInGoogleMapsController</code></a> requests.</p>
+
+<h2>Fallback Strategies</h2>
+
+<p>If the user does not have Google Maps installed, you can specify a number of fallback strategies for <a href="Classes/OpenInGoogleMapsController.html"><code>OpenInGoogleMapsController</code></a> to try by setting the <code>fallbackStrategy</code> property.</p>
+
+<pre><code>[OpenInGoogleMapsController sharedInstance].fallbackStrategy =
+    kGoogleMapsFallbackChromeThenAppleMaps;
+</code></pre>
+
+<p>The fallback strategies you can try are as follows:</p>
+
+<ul>
+<li><code>kGoogleMapsFallbackNone</code> = Do nothing and return <code>NO</code> if the user does not have Google Maps installed. This is the default.</li>
+<li><code>kGoogleMapsFallbackAppleMaps</code> = Open the map with Apple&rsquo;s Maps app instead.</li>
+<li><code>kGoogleMapsFallbackChromeThenSafari</code> = Open the map with Google Chrome if installed, otherwise
+open the map using Google Maps in Safari.</li>
+<li><code>kGoogleMapsFallbackChromeThenAppleMaps</code> = Open the map with Google Chrome if installed, otherwise
+use Apple&rsquo;s Maps app.</li>
+<li><code>kGoogleMapsFallbackSafari</code> = Open the map with Google Maps in Safari instead.</li>
+</ul>
+
+
+<p>If you have specified a callback URL, it will also be passed to Google Chrome.</p>
+
+<p>You only need to set the fallback strategy once during the lifetime of your application and it will be used in all future <code>OpenInGoogleMapsController</code> requests.</p>
+
+<h3>Detecting if Google Maps is installed</h3>
+
+<p>If you want to manually detect if Google Maps is installed, you can use the <code>isGoogleMapsInstalled</code> property.</p>
+
+<pre><code>BOOL isGoogleMapsInstalled = [OpenInGoogleMapsController sharedInstance].isGoogleMapsInstalled;
+</code></pre>
+
+<h2>Opening a map</h2>
+
+<p>Opening a map requires first creating a <code>GoogleMapDefinition</code> object to define the map you want opened. You can then pass the definition object to the <code>openMap</code> method. This method will return <code>YES</code> if it was able to open the map in some application, and <code>NO</code> if it was unable to open a map, either because you didn&rsquo;t define anything to search for, or your user does not have Google Maps installed and you did not specify a fallback strategy.</p>
+
+<pre><code>GoogleMapDefinition *definition = [[GoogleMapDefinition alloc] init];
+// Steps to define the definition.
+[[OpenInGoogleMapsController sharedInstance] openMap:definition];
+</code></pre>
+
+<h3>GoogleMapDefinition</h3>
+
+<p>The <a href="Classes/GoogleMapDefinition.html"><code>GoogleMapDefinition</code></a> class includes several properties, some of which may be set to <code>nil</code>:</p>
+
+<ul>
+<li><code>(NSString *)queryString</code>: A query string which, if set, will be used to search for a place by name.</li>
+<li><code>(CLLocationCoordinate2D) center</code>: Defines the center of the map, in lat/long. If both this and the query string are specified, this will be used as a center for the search. To clear this value, set it to <code>kCLLocationCoordinate2DInvalid</code>. (Setting it to nil will specify a center of 0,0.)</li>
+<li><code>(GoogleMapsViewOptions) viewOptions</code>: A set of bitwise-ORed options that can be set on your map:
+
+<ul>
+<li><code>kGoogleMapsViewOptionSatellite</code>: Shows a satellite view.</li>
+<li><code>kGoogleMapsViewOptionTraffic</code>: Shows traffic information.</li>
+<li><code>kGoogleMapsViewOptionTransit</code>: Shows transit information.</li>
+</ul>
+</li>
+<li><code>float zoomLevel</code>: Defines the zoom level of the map. This can currently be any value from 0 to 21.0.</li>
+</ul>
+
+
+<p>Here&rsquo;s an example that opens up a map for &ldquo;123 Main Street, Anytown, CA&rdquo; with the &ldquo;traffic&rdquo; and &ldquo;satellite&rdquo; map layers turned on.</p>
+
+<pre><code>GoogleMapDefinition *definition = [[GoogleMapDefinition alloc] init];
+definition.queryString = @"123 Main Street, Anytown, CA";
+definition.viewOptions = kGoogleMapsViewOptionSatellite | kGoogleMapsViewOptionTraffic;
+[[OpenInGoogleMapsController sharedInstance] openMap:definition];
+</code></pre>
+
+<h2>Opening a street view location</h2>
+
+<p>Opening a Street View location requires creating a <code>GoogleStreetViewDefinition</code> class to define the location you want to open. You can then pass this definition to the <code>openStreetView</code> method.  This method will return <code>YES</code> if it was able to open the Street View request in some application, and <code>NO</code> if it was not, either because you didn&rsquo;t define a set of coordinates, or your user does not have Google Maps installed and you did not specify a fallback strategy.</p>
+
+<p>Note that a <code>YES</code> value does not actually guarantee the coordinates you specified were a valid Street View location.</p>
+
+<p>If your fallback strategy involves an app that does not support Street View, the <code>OpenInGoogleMapsController</code> class will open a zoomed-in satellite view on a map instead.</p>
+
+<p>Here&rsquo;s an example that opens up a Street View location near the Taj Mahal.</p>
+
+<pre><code>GoogleStreetViewDefinition *definition = [[GoogleStreetViewDefinition alloc] init];
+definition.center = CLLocationCoordinate2DMake(27.1724439,78.0420174);
+[[OpenInGoogleMapsController sharedInstance] openStreetView:definition];
+</code></pre>
+
+<h3>GoogleStreetViewDefinition</h3>
+
+<p>The <code>GoogleStreetViewDefinition</code> class includes one property:</p>
+
+<ul>
+<li><code>(CLLocationCoordinate2D) center</code>: Defines the Street View location, in lat/long. To clear this value, set it to <code>kCLLocationCoordinate2DInvalid</code>. (Setting it to nil will specify a center of 0,0.)</li>
+</ul>
+
+
+<h2>Opening directions</h2>
+
+<p>Opening a set of directions in Google Maps requires creating a <code>GoogleDirectionsDefinition</code> class to define the set of points you want to travel between. You can then pass this definition to the <code>openStreetView</code> method.  This method will return <code>YES</code> if it was able to open the set of directions in some application, and <code>NO</code> if it was unable to, either because both your start and end point were empty, or your user does not have Google Maps installed and you did not specify a fallback strategy.</p>
+
+<p>Note that a <code>YES</code> value does not guarantee that Google Maps (or the fallback application) was able to find a set of directions between these two points:</p>
+
+<h3>GoogleDirectionsWaypoint</h3>
+
+<p>The <code>GoogleDirectionsDefinition</code> class uses the <code>GoogleDirectionsWaypoint</code> class to define its start and end points for a direction request. This class includes these properties:</p>
+
+<ul>
+<li><code>CLLocationCoordinate2D location</code>: Defines the location as a set of coordinates</li>
+<li><code>NSString *queryString</code>: Defines the location as a query string (such as an address)</li>
+</ul>
+
+
+<p>If both of these values are set, the location takes precedence over the query string.</p>
+
+<p>The <code>GoogleDirectionsWaypoint</code> class also has two class helper methods: <code>+ waypointWithQuery:(NSString *)queryString</code> and <code>+ waypointWithLocation:(CLLocationCoordinate2D)location</code> to easily construct waypoints.</p>
+
+<h3>GoogleDirectionsDefinition</h3>
+
+<p>The <code>GoogleDirectionsDefinition</code> class includes these properties:</p>
+
+<ul>
+<li><code>GoogleDirectionsWaypoint *startingPoint</code>: Defines the starting point. If this is set to <code>nil</code>, the directions will start at the user&rsquo;s current location.</li>
+<li><code></code>GoogleDirectionsWaypoint<code> *destinationPoint</code>: Defines the destination. If this is set to <code>nil</code>, the directions will end at the user&rsquo;s current location.</li>
+<li><code>GoogleMapsTravelMode travelMode</code>: Defines how the user will get from the <code>startingPoint</code> to the <code>destinationPoint</code>. Current options are:
+
+<ul>
+<li><code>kGoogleMapsTravelModeDriving</code> for driving.</li>
+<li><code>kGoogleMapsTravelModeTransit</code> for taking public transportation.</li>
+<li><code>kGoogleMapsTravelModeBiking</code> for biking.</li>
+<li><code>kGoogleMapsTravelModeWalking</code> for walking.</li>
+</ul>
+</li>
+</ul>
+
+
+<p>The following example will help you plan your next burrito-centric road trip:</p>
+
+<pre><code>GoogleDirectionsDefinition *definition = [[GoogleDirectionsDefinition alloc] init];
+definition.startingPoint = [GoogleDirectionsWaypoint
+    waypointWithQuery:@"La Taqueria, 2889 Mission St San Francisco, CA 94110"];
+definition.destinationPoint = [GoogleDirectionsWaypoint
+    waypointWithQuery:@"Delicious Mexican Eatery, 3314 Fort Blvd, El Paso, TX 79930"];
+definition.travelMode = kGoogleMapsTravelModeDriving;
+[[OpenInGoogleMapsController sharedInstance] openDirections:definition];
+</code></pre>
+
+<p>The following example will give you biking directions from MI6 headquarters to Sherlock Holmes' address:</p>
+
+<pre><code>GoogleDirectionsDefinition *definition = [[GoogleDirectionsDefinition alloc] init];
+definition.startingPoint = [GoogleDirectionsWaypoint waypointWithLocation:CLLocationCoordinate2DMake(51.487242,-0.124402)];
+definition.destinationPoint = [GoogleDirectionsWaypoint
+                               waypointWithQuery:@"221B Baker Street, London"];
+definition.travelMode = kGoogleMapsTravelModeBiking;
+[[OpenInGoogleMapsController sharedInstance] openDirections:definition];
+</code></pre>
+
+<p>The following example will give you walking directions from your current location to the North American International Auto Show:</p>
+
+<pre><code>GoogleDirectionsDefinition *definition = [[GoogleDirectionsDefinition alloc] init];
+definition.startingPoint = nil;
+GoogleDirectionsWaypoint *destination = [[GoogleDirectionsWaypoint alloc] init];
+destination.queryString = @"1 Washington Blvd, Detroit, MI 48226";
+definition.destinationPoint = destination;
+definition.travelMode = kGoogleMapsTravelModeWalking;
+[[OpenInGoogleMapsController sharedInstance] openDirections:definition];
+</code></pre>
+
+<h1>Special Thanks</h1>
+
+<p>Special thanks go out to Ian Barber, Leo Hourvitz, and Sam Thorogood, for thoroughly reviewing this code. Any remaining mistakes are the author&rsquo;s.</p>
+
+<p>Safari is a registered trademark of Apple Inc.</p>
+						
+						
+					</div>
+					
+                        
+                    
+					
+					
+					<div class="index-column">
+						<h2 class="index-title">Class References</h2>
+						<ul>
+							
+							<li><a href="Classes/GoogleDirectionsDefinition.html">GoogleDirectionsDefinition</a></li>
+							
+							<li><a href="Classes/GoogleDirectionsWaypoint.html">GoogleDirectionsWaypoint</a></li>
+							
+							<li><a href="Classes/GoogleMapDefinition.html">GoogleMapDefinition</a></li>
+							
+							<li><a href="Classes/GoogleStreetViewDefinition.html">GoogleStreetViewDefinition</a></li>
+							
+							<li><a href="Classes/OpenInGoogleMapsController.html">OpenInGoogleMapsController</a></li>
+							
+						</ul>
+					</div>
+					
+					
+						
+					<div class="index-column">
+						
+                        
+						<h2 class="index-title">Constant References</h2>
+						<ul>
+                        
+                        <li><a href="Constants/GoogleMapsFallback.html">GoogleMapsFallback</a></li>
+                        
+                        <li><a href="Constants/GoogleMapsTravelMode.html">GoogleMapsTravelMode</a></li>
+                        
+                        <li><a href="Constants/GoogleMapsViewOptions.html">GoogleMapsViewOptions</a></li>
+                        
+						</ul>
+						
+                        
+						
+					</div>
+					
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<a href="hierarchy.html">Next</a>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2014 Google. All rights reserved. (Last updated: 2014-12-22)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+	
+					</div>
+				</div>
+			</div>
+		</article>		
+	</body>
+</html>

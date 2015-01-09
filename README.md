@@ -171,7 +171,8 @@ The following example will give you walking directions from your current locatio
 
 
 ##Reference Documentation
-You can find the reference documentation in the `Docs/html/` folder. It makes for some 
+You can find the reference documentation in the `Docs/html/` folder or 
+[online](http://googlemaps.github.io/OpenInGoogleMaps-iOS/index.html). It makes for some
 thrilling late-night reading.
 
 # Special Thanks #

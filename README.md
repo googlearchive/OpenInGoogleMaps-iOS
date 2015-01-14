@@ -177,7 +177,7 @@ thrilling late-night reading.
 
 # Special Thanks #
 
-Special thanks go out to Ian Barber, Leo Hourvitz, and Sam Thorogood, for thoroughly reviewing this code. Any remaining mistakes are the author's.
+Special thanks go out to Ian Barber, Leo Hourvitz, and [Sam Thorogood](https://github.com/samthor), for thoroughly reviewing this code. Any remaining mistakes are the author's.
 
 Safari is a registered trademark of Apple Inc.
 

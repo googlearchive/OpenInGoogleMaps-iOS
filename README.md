@@ -6,9 +6,13 @@ The `OpenInGoogleMapsController` class is designed to make it easy for an iOS de
 The `OpenInGoogleMapsController` class makes use of the Google Maps URL Scheme. If you want to understand how the class works under the hood, we highly recommend reading the [URL Scheme documentation](https://developers.google.com/maps/documentation/ios/urlscheme) first.
 
 ##Installing OpenInGoogleMapsController 
-You can download the `OpenInGoogleMapsController` class, along with a sample app demonstrating its use, from the OpenInGoogleMaps [Github page](http:`OpenInGoogleMapsController`//TODO). 
+You can download the `OpenInGoogleMapsController` class, along with a sample app demonstrating its use, from the OpenInGoogleMaps [Github page](https://github.com/googlemaps/OpenInGoogleMaps-iOS). 
 
 To add the class to your Xcode project, simply drag the `OpenInGoogleMapsController` .m and .h files into Xcode. Make sure you call `#import OpenInGoogleMapsController.h` where necessary.
+
+Alternately, if you want to use [CocoaPods](http://cocoapods.org) in your project, you can install the necessary files by adding the following line to your Podfile:
+
+    pod "OpenInGoogleMaps"
 
 ###Running the Sample Application
 If you would like to try out the sample application, open `OpenInGoogleMapsSample.xcodeproj` in Xcode. You will probably want to run this on a real device, as the simulator does not have Google Maps installed. 
@@ -175,9 +179,10 @@ You can find the reference documentation in the `Docs/html/` folder or
 [online](http://googlemaps.github.io/OpenInGoogleMaps-iOS/index.html). It makes for some
 thrilling late-night reading.
 
+
 # Special Thanks #
 
-Special thanks go out to Ian Barber, Leo Hourvitz, and [Sam Thorogood](https://github.com/samthor), for thoroughly reviewing this code. Any remaining mistakes are the author's.
+Special thanks go out to Ian Barber, Leo Hourvitz, and [Sam Thorogood](https://github.com/samthor), for thoroughly reviewing this code. Any remaining mistakes are [the author's](https://github.com/ToddKerpelman).
 
 Safari is a registered trademark of Apple Inc.
 

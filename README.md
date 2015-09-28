@@ -21,6 +21,11 @@ If you would like to try out the sample application, open `OpenInGoogleMapsSampl
 `OpenInGoogleMapsController` is a singleton class, which you can reference by calling the `sharedInstance` class method.
 
 	[[OpenInGoogleMapsController sharedInstance] <make calls here>]
+	
+##Supporting iOS 9
+In iOS 9.0, further restrictions were placed on the `canOpenURL` method -- for this method to work, you will need to add a `LSApplicationQueriesSchemes` array to your app's info.plist file, and then add items for each URL scheme you will want to query. For `OpenInGoogleMapsController`, these schemes as `comgooglemaps`, `comgooglemaps-x-callback`, and your own app's custom URL scheme. 
+
+Please see the sample application for an example of this info.plist file in action.
 
 ##Adding a Callback URL
 

@@ -1,6 +1,6 @@
 #OpenInGoogleMapsController
 
-The `OpenInGoogleMapsController` class is designed to make it easy for an iOS developer to open a map, show a Street View location, or show a set of directions directly in Google Maps. The class supports using the `x-callback-URL` standard so that you can add a "Back to _my app_" button directly within Google Maps, and supports a number of fallback strategies, so that you can automatically open the map in another application if the user does not have Google Maps installed.
+The `OpenInGoogleMapsController` class is designed to make it easy for an iOS developer to open a map, show a Street View location, or show a set of directions directly in Google Maps. The class supports using the `x-callback-URL` standard so that you can add a "Back to _my app_" button directly within Google Maps, and supports a number of fallback strategies, so that you can automatically open the map in another application if the user does not have Google Maps installed. ![Analytics](https://maps-ga-beacon.appspot.com/UA-12846745-20/OpenInGoogleMaps-iOS/readme?pixel)
 
 ##About the Google Maps URL Scheme
 The `OpenInGoogleMapsController` class makes use of the Google Maps URL Scheme. If you want to understand how the class works under the hood, we highly recommend reading the [URL Scheme documentation](https://developers.google.com/maps/documentation/ios/urlscheme) first.

@@ -1,13 +1,13 @@
 **Please note:** This repository is not currently maintained, and is kept for historical purpose only.
 
-#OpenInGoogleMapsController
+# OpenInGoogleMapsController
 
 The `OpenInGoogleMapsController` class is designed to make it easy for an iOS developer to open a map, show a Street View location, or show a set of directions directly in Google Maps. The class supports using the `x-callback-URL` standard so that you can add a "Back to _my app_" button directly within Google Maps, and supports a number of fallback strategies, so that you can automatically open the map in another application if the user does not have Google Maps installed. ![Analytics](https://maps-ga-beacon.appspot.com/UA-12846745-20/OpenInGoogleMaps-iOS/readme?pixel)
 
-##About the Google Maps URL Scheme
+## About the Google Maps URL Scheme
 The `OpenInGoogleMapsController` class makes use of the Google Maps URL Scheme. If you want to understand how the class works under the hood, we highly recommend reading the [URL Scheme documentation](https://developers.google.com/maps/documentation/ios/urlscheme) first.
 
-##Installing OpenInGoogleMapsController 
+## Installing OpenInGoogleMapsController 
 You can download the `OpenInGoogleMapsController` class, along with a sample app demonstrating its use, from the OpenInGoogleMaps [Github page](https://github.com/googlemaps/OpenInGoogleMaps-iOS). 
 
 To add the class to your Xcode project, simply drag the `OpenInGoogleMapsController` .m and .h files into Xcode. Make sure you call `#import OpenInGoogleMapsController.h` where necessary.
@@ -16,20 +16,20 @@ Alternately, if you want to use [CocoaPods](http://cocoapods.org) in your projec
 
     pod "OpenInGoogleMaps"
 
-###Running the Sample Application
+### Running the Sample Application
 If you would like to try out the sample application, open `OpenInGoogleMapsSample.xcodeproj` in Xcode. You will probably want to run this on a real device, as the simulator does not have Google Maps installed. 
 
-##Using OpenInGoogleMapsController
+## Using OpenInGoogleMapsController
 `OpenInGoogleMapsController` is a singleton class, which you can reference by calling the `sharedInstance` class method.
 
 	[[OpenInGoogleMapsController sharedInstance] <make calls here>]
 	
-##Supporting iOS 9
+## Supporting iOS 9
 In iOS 9.0, further restrictions were placed on the `canOpenURL` method -- for this method to work, you will need to add a `LSApplicationQueriesSchemes` array to your app's info.plist file, and then add items for each URL scheme you will want to query. For `OpenInGoogleMapsController`, these schemes as `comgooglemaps`, `comgooglemaps-x-callback`, and your own app's custom URL scheme. 
 
 Please see the sample application for an example of this info.plist file in action.
 
-##Adding a Callback URL
+## Adding a Callback URL
 
 Google Maps and Google Chrome both support the [x-callback-URL](http://x-callback-url.com/) specification, which allows you to easily add a "Back to _my app_" button in Google Maps. To add a callback url:
 
@@ -45,7 +45,7 @@ When you open your maps now in Google Maps (or Google Chrome), you should see a 
 
 You only need to set the callback URL once during the lifetime of your application and it will be used in all future `OpenInGoogleMapsController` requests.
 
-##Fallback Strategies
+## Fallback Strategies
 
 If the user does not have Google Maps installed, you can specify a number of fallback strategies for `OpenInGoogleMapsController` to try by setting the `fallbackStrategy` property.
 
@@ -66,13 +66,13 @@ If you have specified a callback URL, it will also be passed to Google Chrome.
 
 You only need to set the fallback strategy once during the lifetime of your application and it will be used in all future `OpenInGoogleMapsController` requests.
 
-###Detecting if Google Maps is installed###
+### Detecting if Google Maps is installed
 
 If you want to manually detect if Google Maps is installed, you can use the `isGoogleMapsInstalled` property.
 
 	BOOL isGoogleMapsInstalled = [OpenInGoogleMapsController sharedInstance].isGoogleMapsInstalled;
 
-##Opening a map##
+## Opening a map
 
 Opening a map requires first creating a `GoogleMapDefinition` object to define the map you want opened. You can then pass the definition object to the `openMap` method. This method will return `YES` if it was able to open the map in some application, and `NO` if it was unable to open a map, either because you didn't define anything to search for, or your user does not have Google Maps installed and you did not specify a fallback strategy.
 
@@ -81,7 +81,7 @@ Opening a map requires first creating a `GoogleMapDefinition` object to define t
   	[[OpenInGoogleMapsController sharedInstance] openMap:definition];
   
 
-###GoogleMapDefinition##
+### GoogleMapDefinition
 
 The `GoogleMapDefinition` class includes several properties, some of which may be set to `nil`:
 
@@ -100,7 +100,7 @@ Here's an example that opens up a map for "123 Main Street, Anytown, CA" with th
 	definition.viewOptions = kGoogleMapsViewOptionSatellite | kGoogleMapsViewOptionTraffic;
 	[[OpenInGoogleMapsController sharedInstance] openMap:definition];
 
-##Opening a street view location##
+## Opening a street view location
 
 Opening a Street View location requires creating a `GoogleStreetViewDefinition` class to define the location you want to open. You can then pass this definition to the `openStreetView` method.  This method will return `YES` if it was able to open the Street View request in some application, and `NO` if it was not, either because you didn't define a set of coordinates, or your user does not have Google Maps installed and you did not specify a fallback strategy.
 
@@ -115,19 +115,19 @@ Here's an example that opens up a Street View location near the Taj Mahal.
 	[[OpenInGoogleMapsController sharedInstance] openStreetView:definition];
 
 	
-###GoogleStreetViewDefinition##
+### GoogleStreetViewDefinition
 
 The `GoogleStreetViewDefinition` class includes one property:
 
 * `(CLLocationCoordinate2D) center`: Defines the Street View location, in lat/long. To clear this value, set it to `kCLLocationCoordinate2DInvalid`. (Setting it to nil will specify a center of 0,0.)
 
-##Opening directions##
+## Opening directions
 
 Opening a set of directions in Google Maps requires creating a `GoogleDirectionsDefinition` class to define the set of points you want to travel between. You can then pass this definition to the `openStreetView` method.  This method will return `YES` if it was able to open the set of directions in some application, and `NO` if it was unable to, either because both your start and end point were empty, or your user does not have Google Maps installed and you did not specify a fallback strategy.
 
 Note that a `YES` value does not guarantee that Google Maps (or the fallback application) was able to find a set of directions between these two points:
 
-###GoogleDirectionsWaypoint###
+### GoogleDirectionsWaypoint
 The `GoogleDirectionsDefinition` class uses the `GoogleDirectionsWaypoint` class to define its start and end points for a direction request. This class includes these properties:
 
 * `CLLocationCoordinate2D location`: Defines the location as a set of coordinates
@@ -137,7 +137,7 @@ If both of these values are set, the location takes precedence over the query st
 
 The `GoogleDirectionsWaypoint` class also has two class helper methods: `+ waypointWithQuery:(NSString *)queryString` and `+ waypointWithLocation:(CLLocationCoordinate2D)location` to easily construct waypoints.
 
-###GoogleDirectionsDefinition###
+### GoogleDirectionsDefinition
 
 The `GoogleDirectionsDefinition` class includes these properties:
 
@@ -181,13 +181,13 @@ The following example will give you walking directions from your current locatio
 	[[OpenInGoogleMapsController sharedInstance] openDirections:definition];
 
 
-##Reference Documentation
+## Reference Documentation
 You can find the reference documentation in the `Docs/html/` folder or 
 [online](http://googlemaps.github.io/OpenInGoogleMaps-iOS/index.html). It makes for some
 thrilling late-night reading.
 
 
-# Special Thanks #
+# Special Thanks
 
 Special thanks go out to Ian Barber, Leo Hourvitz, and [Sam Thorogood](https://github.com/samthor), for thoroughly reviewing this code. Any remaining mistakes are [the author's](https://github.com/ToddKerpelman).
 

@@ -1,23 +1,38 @@
-**Please note:** This repository is not currently maintained, and is kept for historical purpose only.
+# OpenInGoogleMaps-iOS is Deprecated
+
+This library was created to handle a the use case of opening the correct app to show a Map, Street View, or Directions.
+At [Google I/O 2017 we announced](https://www.youtube.com/watch?v=vLRutvtJwLg) a better, cross platform, approach to
+handling this requirement - [Maps URLs](https://developers.google.com/maps/documentation/urls/guide).
+
+Using Maps URLs, you can build a universal, cross-platform URL to launch Google Maps and perform searches, get directions
+and navigation, and display map views and panoramic images. The URL syntax is the same regardless of the platform in use.
 
 # OpenInGoogleMapsController
 
-The `OpenInGoogleMapsController` class is designed to make it easy for an iOS developer to open a map, show a Street View location, or show a set of directions directly in Google Maps. The class supports using the `x-callback-URL` standard so that you can add a "Back to _my app_" button directly within Google Maps, and supports a number of fallback strategies, so that you can automatically open the map in another application if the user does not have Google Maps installed. ![Analytics](https://maps-ga-beacon.appspot.com/UA-12846745-20/OpenInGoogleMaps-iOS/readme?pixel)
+The `OpenInGoogleMapsController` class is designed to make it easy for an iOS developer to open a map, show a Street View 
+location, or show a set of directions directly in Google Maps. The class supports using the `x-callback-URL` standard so 
+that you can add a "Back to _my app_" button directly within Google Maps, and supports a number of fallback strategies, so 
+that you can automatically open the map in another application if the user does not have Google Maps installed. ![Analytics](https://maps-ga-beacon.appspot.com/UA-12846745-20/OpenInGoogleMaps-iOS/readme?pixel)
 
 ## About the Google Maps URL Scheme
-The `OpenInGoogleMapsController` class makes use of the Google Maps URL Scheme. If you want to understand how the class works under the hood, we highly recommend reading the [URL Scheme documentation](https://developers.google.com/maps/documentation/ios/urlscheme) first.
+The `OpenInGoogleMapsController` class makes use of the Google Maps URL Scheme. If you want to understand how the class 
+works under the hood, we highly recommend reading the [URL Scheme documentation](https://developers.google.com/maps/documentation/ios/urlscheme) first.
 
 ## Installing OpenInGoogleMapsController 
-You can download the `OpenInGoogleMapsController` class, along with a sample app demonstrating its use, from the OpenInGoogleMaps [Github page](https://github.com/googlemaps/OpenInGoogleMaps-iOS). 
+You can download the `OpenInGoogleMapsController` class, along with a sample app demonstrating its use, from the 
+OpenInGoogleMaps [Github page](https://github.com/googlemaps/OpenInGoogleMaps-iOS). 
 
-To add the class to your Xcode project, simply drag the `OpenInGoogleMapsController` .m and .h files into Xcode. Make sure you call `#import OpenInGoogleMapsController.h` where necessary.
+To add the class to your Xcode project, simply drag the `OpenInGoogleMapsController` .m and .h files into Xcode. Make sure 
+you call `#import OpenInGoogleMapsController.h` where necessary.
 
-Alternately, if you want to use [CocoaPods](http://cocoapods.org) in your project, you can install the necessary files by adding the following line to your Podfile:
+Alternately, if you want to use [CocoaPods](http://cocoapods.org) in your project, you can install the necessary files by 
+adding the following line to your Podfile:
 
     pod "OpenInGoogleMaps"
 
 ### Running the Sample Application
-If you would like to try out the sample application, open `OpenInGoogleMapsSample.xcodeproj` in Xcode. You will probably want to run this on a real device, as the simulator does not have Google Maps installed. 
+If you would like to try out the sample application, open `OpenInGoogleMapsSample.xcodeproj` in Xcode. You will probably 
+want to run this on a real device, as the simulator does not have Google Maps installed. 
 
 ## Using OpenInGoogleMapsController
 `OpenInGoogleMapsController` is a singleton class, which you can reference by calling the `sharedInstance` class method.
@@ -25,13 +40,17 @@ If you would like to try out the sample application, open `OpenInGoogleMapsSampl
 	[[OpenInGoogleMapsController sharedInstance] <make calls here>]
 	
 ## Supporting iOS 9
-In iOS 9.0, further restrictions were placed on the `canOpenURL` method -- for this method to work, you will need to add a `LSApplicationQueriesSchemes` array to your app's info.plist file, and then add items for each URL scheme you will want to query. For `OpenInGoogleMapsController`, these schemes as `comgooglemaps`, `comgooglemaps-x-callback`, and your own app's custom URL scheme. 
+In iOS 9.0, further restrictions were placed on the `canOpenURL` method -- for this method to work, you will need to add a 
+`LSApplicationQueriesSchemes` array to your app's info.plist file, and then add items for each URL scheme you will want to 
+query. For `OpenInGoogleMapsController`, these schemes as `comgooglemaps`, `comgooglemaps-x-callback`, and your own app's 
+custom URL scheme. 
 
 Please see the sample application for an example of this info.plist file in action.
 
 ## Adding a Callback URL
 
-Google Maps and Google Chrome both support the [x-callback-URL](http://x-callback-url.com/) specification, which allows you to easily add a "Back to _my app_" button in Google Maps. To add a callback url:
+Google Maps and Google Chrome both support the [x-callback-URL](http://x-callback-url.com/) specification, which allows you 
+to easily add a "Back to _my app_" button in Google Maps. To add a callback url:
 
 1. Within your Xcode project, select your target, and then select *Info -> URL Types* 
 2. Add a URLType for your application. This string should be unique for your app. Many developers choose to use their bundle identifier, without the periods (`comgooglemyapp`, for instance).
@@ -41,13 +60,16 @@ Google Maps and Google Chrome both support the [x-callback-URL](http://x-callbac
 		NSURL myCallbackURL = [NSURL URLWithString:myURLScheme];
 		[OpenInGoogleMapsController sharedInstance].callbackURL = myCallbackURL;
 
-When you open your maps now in Google Maps (or Google Chrome), you should see a button that redirects users back to your app when they're done viewing the map.	
+When you open your maps now in Google Maps (or Google Chrome), you should see a button that redirects users back to your app 
+when they're done viewing the map.	
 
-You only need to set the callback URL once during the lifetime of your application and it will be used in all future `OpenInGoogleMapsController` requests.
+You only need to set the callback URL once during the lifetime of your application and it will be used in all future 
+`OpenInGoogleMapsController` requests.
 
 ## Fallback Strategies
 
-If the user does not have Google Maps installed, you can specify a number of fallback strategies for `OpenInGoogleMapsController` to try by setting the `fallbackStrategy` property.
+If the user does not have Google Maps installed, you can specify a number of fallback strategies for 
+`OpenInGoogleMapsController` to try by setting the `fallbackStrategy` property.
 
 	[OpenInGoogleMapsController sharedInstance].fallbackStrategy =
     	kGoogleMapsFallbackChromeThenAppleMaps;
